@@ -74,8 +74,8 @@ var loadAppService = function( router , ioSocket, wss ) {
 	//for(var j =0; j < 2; j++ ) 
 	{			
 		var app = {"n":null}; 
-		//hLd = require('../apps/wsn_manage/index.js');
-		hLd = require('../apps/sample/index.js');
+		hLd = require('../apps/wsn_manage/index.js');
+		//hLd = require('../apps/sample/index.js');
 
 		if( hLd == undefined || hLd == null ) {
 			console.log('handle is null');
