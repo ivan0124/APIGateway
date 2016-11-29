@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#Auto Run put it at /usr/local/bin
+cd /home/adv/APIGateway
+npm start

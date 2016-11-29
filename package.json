@@ -1,0 +1,19 @@
+{
+  "name": "eis_restapi",
+  "version": "1.0.0",
+  "description": "EIS REST API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric.Liang",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "router": "^1.1.4",
+    "socket.io": "^1.5.0",
+    "ws": "^1.1.1"
+  }
+}
