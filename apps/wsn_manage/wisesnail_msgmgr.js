@@ -39,7 +39,7 @@ require('getmac').getMac(function(err,macAddress){
     //console.log( 'gHostConnectivity = ' + gHostConnectivity );
 });
 
-var Client  = Mqtt.connect('mqtt://172.22.212.28');
+var Client  = Mqtt.connect('mqtt://172.22.15.134');
 Client.queueQoSZero = false;
 
 const MSG_TYPE = { 
