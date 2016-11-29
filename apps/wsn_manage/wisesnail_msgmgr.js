@@ -648,7 +648,7 @@ function connectivityMapUpdate( messageType, vgw_id, osInfo, layer, connType, in
                    connectivity.dev_full_info = JSON.stringify(fullInfoObj);
 
                    /* send generate html event */
-                   var rootRESTful = 'IoTGW/' + connType + '/' + device_id + '/'; 
+                   var rootRESTful = 'IoTGW/' + connType + '/' + device_id; 
                    genHtmlEventObj.emit(groupName, EVENT.eConnectivity_GenHtml, rootRESTful,connectivity.dev_full_info);
 /*
                    console.log('-----------');
