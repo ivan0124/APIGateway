@@ -2,6 +2,7 @@ var EVENT = require('./html_event.js');
 var fs = require('fs');
 
 var genHtml = function(html_event, rootRESTful, data){
+/*
   console.log('[html_generator.js] EVENT : ' + html_event + ', rootRESTful = ' + rootRESTful + ', data = ' + data);
 
   var deviceID = rootRESTful.split('/')[2];
@@ -65,7 +66,7 @@ var genHtml = function(html_event, rootRESTful, data){
     });
 
   });
-
+*/
 }
 
 function genDeviceTableElement( html_event, deviceID, connectivityType ){
