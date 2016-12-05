@@ -20,7 +20,7 @@ var genHtml = function(html_event, rootRESTful, data){
   convertJsonObjToRESTful('',dataObj, RESTfulList);
   
   /* create directory */
-  dir = './' + deviceID;
+  dir = '../wsn_setting/device_html/' + deviceID;
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
   }
