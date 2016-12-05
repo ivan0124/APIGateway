@@ -33,13 +33,14 @@ var wsclients = [];
 
 require('getmac').getMac(function(err,macAddress){
     if (err)  throw err;
-    console.log(macAddress);   
+    console.log('-----------------------------');
+    console.log('getMac: ' + macAddress);   
     var mac = macAddress.toString().replace(/:/g,'');
     gHostConnectivity = '0007' + mac;
     //console.log( 'gHostConnectivity = ' + gHostConnectivity );
 });
 
-var Client  = Mqtt.connect('mqtt://172.22.15.134');
+var Client  = Mqtt.connect('mqtt://172.22.213.145');
 Client.queueQoSZero = false;
 
 const MSG_TYPE = { 
