@@ -2,29 +2,48 @@ var EVENT = require('./html_event.js');
 var fs = require('fs');
 
 var genHtml = function(html_event, rootRESTful, data){
-  //console.log('[html_generator.js] EVENT : ' + html_event + ', rootRESTful = ' + rootRESTful + ', data = ' + data);
+  console.log('[html_generator.js] EVENT : ' + html_event + ', rootRESTful = ' + rootRESTful + ', data = ' + data);
 
   var deviceID = rootRESTful.split('/')[2];
+  var connectivityType = rootRESTful.split('/')[1];
   var dataObj = JSON.parse(data);
-/*
-  dataObj.Net = {};
-  dataObj.Net.e = [];
-  dataObj.Net.e.push({n:'Net1', sv:'',asm:'r'});
-  dataObj.Net.e.push({n:'Net2', sv:'',asm:'r'});
-  dataObj.Net.e.push({n:'Name', sv:'Net',asm:'r'});
-  dataObj.Net.bn = 'Net';
+  
+  //generate device_table data
+  var dir = '../wsn_setting/device_table';
+  var fileName = dir + '/' + deviceID + '.htm';
+  //var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType );
+  
+  var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
+  var line2 = deviceID;
+  var line3 = '\">'
+  var line4 = deviceID;
+  var line5 = '</a></td> <td>';
+  var line6 = 'Connectivity'
+  var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
+  var line8 = deviceID;
+  var line9 = '\">';
+  var line10 = deviceID;
+  var line11 = '</a></td><td>';
+  var line12 = connectivityType;
+  var line13 = '</td> </tr>'; 
+  var html_trtd = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 +line10 + line11 + line12 + line13;
 
-  console.log('data = ' + JSON.stringify(dataObj));
-*/
+  
+  fs.writeFile(fileName, html_trtd, function(err) {
+    if(err) {
+      return console.log(err);
+    }
+    //console.log("The file was saved!");
+  });
   var RESTfulList = [];
   convertJsonObjToRESTful('',dataObj, RESTfulList);
   
-  /* create directory */
-  dir = '../wsn_setting/device_html/' + deviceID;
+  // create directory
+  var dir = '../wsn_setting/device_html/' + deviceID;
   if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
   }
-  fileName = dir + '/index.htm'
+  var fileName = dir + '/index.htm'
 
   fs.writeFile(fileName, '', function(err) {
     if(err) {
@@ -33,7 +52,7 @@ var genHtml = function(html_event, rootRESTful, data){
     //console.log("The file was saved!");
   });
  
-  /* List RESTful API */
+  // List RESTful API
   RESTfulList.forEach(function(value){
     console.log(value);
     var RESTful = value.split(',')[0];
@@ -46,6 +65,27 @@ var genHtml = function(html_event, rootRESTful, data){
     });
 
   });
+
+}
+
+function genDeviceTableElement( html_event, deviceID, connectivityType ){
+
+  var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
+  var line2 = deviceID;
+  var line3 = '\">'
+  var line4 = deviceID;
+  var line5 = '</a></td> <td>';
+  var line6 = 'Connectivity'
+  var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
+  var line8 = deviceID;
+  var line9 = '\">';
+  var line10 = deviceID;
+  var line11 = '</a></td><td>';
+  var line12 = connectivityType;
+  var line13 = '</td> </tr>'; 
+  var html_trtd = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 +line10 + line11 + line12 + line13;
+
+  return html_trtd;
 }
 
 function genDeviceHtml( rootRESTful, RESTful, asm ){
