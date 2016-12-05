@@ -1,3 +1,11 @@
+require('getmac').getMac(function(err,macAddress){
+    if (err)  throw err;
+    console.log('-----------------------------');
+    console.log('getMac: ' + macAddress);   
+    var mac = macAddress.toString().replace(/:/g,'');
+    gHostConnectivity = '0007' + mac;
+    //console.log( 'gHostConnectivity = ' + gHostConnectivity );
+});
 var STATUS = require('../../inc/statusCode.js').STATUS_CODE;
 var Uuid = require('node-uuid');
 var Mqtt = require('mqtt');
@@ -31,14 +39,6 @@ var GET_RESULT ={"Net":{"e": [{"n":"Health","v":86}],"bn":"Net"}};
 
 var wsclients = [];
 
-require('getmac').getMac(function(err,macAddress){
-    if (err)  throw err;
-    console.log('-----------------------------');
-    console.log('getMac: ' + macAddress);   
-    var mac = macAddress.toString().replace(/:/g,'');
-    gHostConnectivity = '0007' + mac;
-    //console.log( 'gHostConnectivity = ' + gHostConnectivity );
-});
 
 var Client  = Mqtt.connect('mqtt://172.22.213.145');
 Client.queueQoSZero = false;
@@ -111,7 +111,7 @@ const RESTFUL_VAL_TYPE = {
 
 function addHostConnectivity(){
 
-  console.log( 'gHostConnectivity = ' + gHostConnectivity );
+  console.log( '[addHostConnectivity] gHostConnectivity = ' + gHostConnectivity );
   /* copy DEVICE_OBJ object as vgw objcect */
   var connObj = JSON.parse(JSON.stringify(DEVICE_OBJ));
 
