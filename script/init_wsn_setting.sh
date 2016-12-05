@@ -1,7 +1,10 @@
 #!/bin/sh
-#
-cd /home/adv/wsn_setting
+
+#only remove subdirectoy
+cd /home/adv/wsn_setting/device_html
+rm -Rf -- */
+
+#remove all files
+cd /home/adv/wsn_setting/device_table
 rm -rf *
-#Auto Run put it at /usr/local/bin
-#cd /home/adv/APIGateway
-#npm start
+
