@@ -1013,6 +1013,10 @@ function removeVGW( vgw_id ){
            console.log('----');
 */
            ConnectivityMap.remove(key);
+
+           /* send generate html event */
+           var rootRESTful = 'IoTGW/' + obj.conn_type + '/' + key; 
+           genHtmlEventObj.emit(groupName, EVENT.eConnectivity_DelHtml, rootRESTful, '');
         }
       });
 /*     

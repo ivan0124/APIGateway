@@ -1,7 +1,7 @@
 const eConnectivity_GenHtml = 'eConnectivity_GenHtml';
-const eConnectivity_UpdateData = 'eConnectivity_UpdateData';
+const eConnectivity_DelHtml = 'eConnectivity_DelHtml';
 
 module.exports = {
     eConnectivity_GenHtml: eConnectivity_GenHtml,
-    eConnectivity_UpdateData: eConnectivity_UpdateData,
+    eConnectivity_DelHtml: eConnectivity_DelHtml,
 };

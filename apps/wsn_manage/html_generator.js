@@ -2,71 +2,94 @@ var EVENT = require('./html_event.js');
 var fs = require('fs');
 
 var genHtml = function(html_event, rootRESTful, data){
-/*
+
   console.log('[html_generator.js] EVENT : ' + html_event + ', rootRESTful = ' + rootRESTful + ', data = ' + data);
 
   var deviceID = rootRESTful.split('/')[2];
   var connectivityType = rootRESTful.split('/')[1];
-  var dataObj = JSON.parse(data);
-  
-  //generate device_table data
-  var dir = '../wsn_setting/device_table';
-  var fileName = dir + '/' + deviceID + '.htm';
-  //var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType );
-  
-  var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
-  var line2 = deviceID;
-  var line3 = '\">'
-  var line4 = deviceID;
-  var line5 = '</a></td> <td>';
-  var line6 = 'Connectivity'
-  var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
-  var line8 = deviceID;
-  var line9 = '\">';
-  var line10 = deviceID;
-  var line11 = '</a></td><td>';
-  var line12 = connectivityType;
-  var line13 = '</td> </tr>'; 
-  var html_trtd = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 +line10 + line11 + line12 + line13;
+  if ( html_event === 'eConnectivity_DelHtml'){
+    console.log('[html_generator.js] EVENT : ' + html_event );
 
-  
-  fs.writeFile(fileName, html_trtd, function(err) {
-    if(err) {
-      return console.log(err);
-    }
-    //console.log("The file was saved!");
-  });
-  var RESTfulList = [];
-  convertJsonObjToRESTful('',dataObj, RESTfulList);
-  
-  // create directory
-  var dir = '../wsn_setting/device_html/' + deviceID;
-  if (!fs.existsSync(dir)){
-    fs.mkdirSync(dir);
+    //remove device_table html
+    var dir = '../wsn_setting/device_table';
+    var fileName = dir + '/' + deviceID + '.htm';
+    fs.unlinkSync(fileName);
+
+    //remove device_html
+    var dir = '../wsn_setting/device_html/' + deviceID;
+    var fileName = dir + '/index.htm';
+    fs.unlinkSync(fileName);
+    fs.rmdirSync(dir);
+
+    return;
   }
-  var fileName = dir + '/index.htm'
 
-  fs.writeFile(fileName, '', function(err) {
-    if(err) {
-      return console.log(err);
-    }
-    //console.log("The file was saved!");
-  });
+  if ( html_event === 'eConnectivity_GenHtml'){
+    var dataObj = JSON.parse(data);
  
-  // List RESTful API
-  RESTfulList.forEach(function(value){
-    console.log(value);
-    var RESTful = value.split(',')[0];
-    var asm = value.split(',')[1];
-    //RESTfulAPI = rootRESTful + RESTfulAPI;
-    var html_form = genDeviceHtml( rootRESTful, RESTful, asm );
-
-    fs.appendFile(fileName, html_form, function (err) {
-
-    });
-
-  });
+    //generate device_table data
+    var dir = '../wsn_setting/device_table';
+    var fileName = dir + '/' + deviceID + '.htm';
+    var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType );
+/*  
+    var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
+    var line2 = deviceID;
+    var line3 = '\">'
+    var line4 = deviceID;
+    var line5 = '</a></td> <td>';
+    if ( html_event === 'eConnectivity_GenHtml' ){
+      var line6 = 'Connectivity';
+    }
+    else{
+      var line6 = 'Sensor Hub';
+    }
+    var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
+    var line8 = deviceID;
+    var line9 = '\">';
+    var line10 = deviceID;
+    var line11 = '</a></td><td>';
+    var line12 = connectivityType;
+    var line13 = '</td> </tr>'; 
+    var html_trtd = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 +line10 + line11 + line12 + line13;
 */
+  
+    fs.writeFile(fileName, html_trtd, function(err) {
+      if(err) {
+        return console.log(err);
+      }
+      //console.log("The file was saved!");
+    });
+    var RESTfulList = [];
+    convertJsonObjToRESTful('',dataObj, RESTfulList);
+  
+    // create directory
+    var dir = '../wsn_setting/device_html/' + deviceID;
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+    }
+    var fileName = dir + '/index.htm'
+
+    fs.writeFile(fileName, '', function(err) {
+      if(err) {
+        return console.log(err);
+      }
+      //console.log("The file was saved!");
+    });
+ 
+    // List RESTful API
+    RESTfulList.forEach(function(value){
+      console.log(value);
+      var RESTful = value.split(',')[0];
+      var asm = value.split(',')[1];
+      //RESTfulAPI = rootRESTful + RESTfulAPI;
+      var html_form = genDeviceHtml( rootRESTful, RESTful, asm );
+
+      fs.appendFile(fileName, html_form, function (err) {
+
+      });
+    });
+  }
+
 }
 
 function genDeviceTableElement( html_event, deviceID, connectivityType ){
@@ -76,7 +99,12 @@ function genDeviceTableElement( html_event, deviceID, connectivityType ){
   var line3 = '\">'
   var line4 = deviceID;
   var line5 = '</a></td> <td>';
-  var line6 = 'Connectivity'
+  if ( html_event === 'eConnectivity_GenHtml' ){
+    var line6 = 'Connectivity';
+  }
+  else{
+    var line6 = 'Sensor Hub';
+  }
   var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
   var line8 = deviceID;
   var line9 = '\">';
