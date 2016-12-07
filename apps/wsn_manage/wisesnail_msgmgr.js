@@ -783,13 +783,19 @@ function sensorHubMapUpdate(messageType, device_id, message){
 	  var keyStr = '';
 	  setRESTFulArrayValueMapToJsonObj( device_id, keyStr, fullInfoObj); 
 	  sensorhub.dev_full_info = JSON.stringify(fullInfoObj);
-          console.log('-----------');
+          //console.log('-----------');
           //console.log('UPDATE: sensorhub.dev_full_info ==== ' + sensorhub.dev_full_info);
           //console.log('WSNEVENTS  ==== ' + WSNEVENTS[5].event);
           var eventMsgObj = partialInfoObj.susiCommData.data;
           eventMsgObj.agentID = device_id;
+          eventMsgObj.sendTS = partialInfoObj.susiCommData.sendTS;
+/*
+          console.log('============================================');
+          console.log('eventMsg = ' + JSON.stringify(eventMsgObj));
+          console.log('============================================');
+*/
           eventEmitterObj.emit(groupName, groupName, WSNEVENTS[5].event, eventMsgObj);
-          console.log('-----------');
+          //console.log('-----------');
             
           /*
 	  RESTFulArrayValueMap.forEach(function(obj, key) {
