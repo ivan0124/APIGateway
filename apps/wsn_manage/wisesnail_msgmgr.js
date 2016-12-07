@@ -40,7 +40,7 @@ var GET_RESULT ={"Net":{"e": [{"n":"Health","v":86}],"bn":"Net"}};
 var wsclients = [];
 
 
-var Client  = Mqtt.connect('mqtt://172.22.213.145');
+var Client  = Mqtt.connect('mqtt://advigw-mqtt-bus');
 Client.queueQoSZero = false;
 
 const MSG_TYPE = { 
