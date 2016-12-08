@@ -1052,6 +1052,9 @@ function removeVGW( vgw_id ){
            console.log('----');
            */
            SensorHubMap.remove(key);
+           /* send delete html event */
+           var rootRESTful = 'SenHub/' + obj.conn_type + '/' + key + '/' + obj.conn_id; 
+           genHtmlEventObj.emit(groupName, EVENT.eSensorHub_DelHtml, rootRESTful, '');
         }
       });     
       //console.log('Show all SensorHubMap. count= ' + SensorHubMap.count());

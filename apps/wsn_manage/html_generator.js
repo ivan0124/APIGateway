@@ -10,7 +10,7 @@ var genHtml = function(html_event, rootRESTful, data){
   var connectivityType = rootRESTful.split('/')[1];
   var connectivityID='';
  
-  if ( html_event === 'eConnectivity_DelHtml'){
+  if ( html_event === 'eConnectivity_DelHtml' || html_event === 'eSensorHub_DelHtml'){
     console.log('[html_generator.js] EVENT : ' + html_event );
 
     //remove device_table html
