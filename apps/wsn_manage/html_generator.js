@@ -13,16 +13,23 @@ var genHtml = function(html_event, rootRESTful, data){
   if ( html_event === 'eConnectivity_DelHtml' || html_event === 'eSensorHub_DelHtml'){
     console.log('[html_generator.js] EVENT : ' + html_event );
 
-    //remove device_table html
-    var dir = '../wsn_setting/device_table';
-    var fileName = dir + '/' + deviceID + '.htm';
-    fs.unlinkSync(fileName);
-
-    //remove device_html
-    var dir = '../wsn_setting/device_html/' + deviceID;
-    var fileName = dir + '/index.htm';
-    fs.unlinkSync(fileName);
-    fs.rmdirSync(dir);
+    try
+    {
+      //remove device_table html
+      var dir = '../wsn_setting/device_table';
+      var fileName = dir + '/' + deviceID + '.htm';
+      fs.unlinkSync(fileName);
+      //remove device_html
+      var dir = '../wsn_setting/device_html/' + deviceID;
+      var fileName = dir + '/index.htm';
+      fs.unlinkSync(fileName);
+      fs.rmdirSync(dir);
+    }
+    catch (e)
+    {
+        console.log(fileName + ": " + e);
+        return;
+    }
 
     return;
   }
@@ -44,28 +51,7 @@ var genHtml = function(html_event, rootRESTful, data){
     var dir = '../wsn_setting/device_table';
     var fileName = dir + '/' + deviceID + '.htm';
     var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType, connectivityID );
-/*  
-    var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
-    var line2 = deviceID;
-    var line3 = '\">'
-    var line4 = deviceID;
-    var line5 = '</a></td> <td>';
-    if ( html_event === 'eConnectivity_GenHtml' ){
-      var line6 = 'Connectivity';
-    }
-    else{
-      var line6 = 'Sensor Hub';
-    }
-    var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
-    var line8 = deviceID;
-    var line9 = '\">';
-    var line10 = deviceID;
-    var line11 = '</a></td><td>';
-    var line12 = connectivityType;
-    var line13 = '</td> </tr>'; 
-    var html_trtd = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9 +line10 + line11 + line12 + line13;
-*/
-  
+    
     fs.writeFile(fileName, html_trtd, function(err) {
       if(err) {
         return console.log(err);
