@@ -4,9 +4,12 @@ var fs = require('fs');
 var genHtml = function(html_event, rootRESTful, data){
 
   console.log('[html_generator.js] EVENT : ' + html_event + ', rootRESTful = ' + rootRESTful + ', data = ' + data);
-
+  
+  var devType = rootRESTful.split('/')[0];
   var deviceID = rootRESTful.split('/')[2];
   var connectivityType = rootRESTful.split('/')[1];
+  var connectivityID='';
+ 
   if ( html_event === 'eConnectivity_DelHtml'){
     console.log('[html_generator.js] EVENT : ' + html_event );
 
@@ -24,13 +27,23 @@ var genHtml = function(html_event, rootRESTful, data){
     return;
   }
 
-  if ( html_event === 'eConnectivity_GenHtml'){
+
+  if ( html_event === 'eSensorHub_GenHtml'){
+    //console.log( 'deviceID =' + deviceID + ', connectivityType = ' + connectivityType);
+    var connectivityID = rootRESTful.split('/')[3];
+    rootRESTful = devType + '/' + deviceID;
+    console.log( 'connectivityID =' + connectivityID);
+    //console.log( 'rootRESTful =' + rootRESTful);
+  }
+
+
+  if ( html_event === 'eConnectivity_GenHtml' || html_event === 'eSensorHub_GenHtml'){
     var dataObj = JSON.parse(data);
  
     //generate device_table data
     var dir = '../wsn_setting/device_table';
     var fileName = dir + '/' + deviceID + '.htm';
-    var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType );
+    var html_trtd = genDeviceTableElement( html_event, deviceID, connectivityType, connectivityID );
 /*  
     var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
     var line2 = deviceID;
@@ -92,7 +105,7 @@ var genHtml = function(html_event, rootRESTful, data){
 
 }
 
-function genDeviceTableElement( html_event, deviceID, connectivityType ){
+function genDeviceTableElement( html_event, deviceID, connectivityType, connectivityID ){
 
   var line1 = '<tr> <td><a href=\"./device_html/index.cgi?device_id=';
   var line2 = deviceID;
@@ -106,9 +119,19 @@ function genDeviceTableElement( html_event, deviceID, connectivityType ){
     var line6 = 'Sensor Hub';
   }
   var line7 = '</td><td><a href=\"./device_html/index.cgi?device_id=';
-  var line8 = deviceID;
+  if ( html_event === 'eConnectivity_GenHtml' ){
+    var line8 = deviceID;
+  }
+  else{
+    var line8 = connectivityID;
+  }
   var line9 = '\">';
-  var line10 = deviceID;
+  if ( html_event === 'eConnectivity_GenHtml' ){
+    var line10 = deviceID;
+  }
+  else{
+    var line10 = connectivityID;
+  }
   var line11 = '</a></td><td>';
   var line12 = connectivityType;
   var line13 = '</td> </tr>'; 

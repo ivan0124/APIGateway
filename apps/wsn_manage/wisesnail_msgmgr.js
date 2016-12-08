@@ -769,6 +769,10 @@ function sensorHubMapUpdate(messageType, device_id, message){
           //console.log('sensorhub.dev_full_info ==== ' + sensorhub.dev_full_info);
           eventMsgObj.agentID = device_id;
           eventEmitterObj.emit(groupName, groupName, WSNEVENTS[4].event, eventMsgObj);
+          /* send generate html event */
+          var rootRESTful = 'SenHub/' + sensorhub.conn_type + '/' + device_id + '/' + sensorhub.conn_id; 
+          genHtmlEventObj.emit(groupName, EVENT.eSensorHub_GenHtml, rootRESTful, sensorhub.dev_full_info);
+          //
           console.log('-----------');
         }        
         if ( MSG_TYPE.SENSORHUB_INFO === messageType){
@@ -1020,7 +1024,7 @@ function removeVGW( vgw_id ){
 */
            ConnectivityMap.remove(key);
 
-           /* send generate html event */
+           /* send delete html event */
            var rootRESTful = 'IoTGW/' + obj.conn_type + '/' + key; 
            genHtmlEventObj.emit(groupName, EVENT.eConnectivity_DelHtml, rootRESTful, '');
         }
