@@ -449,6 +449,22 @@ function doesVGWNeedReConnect( deviceID ){
    return true;
  }
 
+ var sensorHubCount = 0;
+ SensorHubMap.forEach(function(obj, key) {
+   //console.log('key = ' + key); 
+   if ( vgw.vgw_id === obj.vgw_id ){
+     if ( obj.dev_info_spec === 'null' ){
+       console.log('[doesVGWNeedReConnect] sensor hub = ' + key + ', dev_info_spec = ' + obj.dev_info_spec );
+       sensorHubCount ++;
+       return true;
+     }
+   }
+ }); 
+ 
+ if ( sensorHubCount !== 0){
+   console.log('[doesVGWNeedReConnect] sensor hub info spec is null');
+   return true;
+ }
  console.log('[doesVGWNeedReConnect] ' + deviceID + ' data OK' );
  return false;
 }
