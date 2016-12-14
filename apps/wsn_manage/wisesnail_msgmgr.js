@@ -41,6 +41,7 @@ var wsclients = [];
 
 
 var Client  = Mqtt.connect('mqtt://advigw-mqtt-bus');
+//var Client  = Mqtt.connect('mqtt://mqtt.advigw_network');
 Client.queueQoSZero = false;
 
 const MSG_TYPE = { 
