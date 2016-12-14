@@ -43,6 +43,10 @@ var genHtml = function(html_event, rootRESTful, data){
     //console.log( 'rootRESTful =' + rootRESTful);
   }
 
+  if ( html_event === 'eConnectivity_GenHtml'){
+    rootRESTful = 'Connectivity/' + rootRESTful;
+  }
+
 
   if ( html_event === 'eConnectivity_GenHtml' || html_event === 'eSensorHub_GenHtml'){
     var dataObj = JSON.parse(data);

@@ -56,8 +56,9 @@ if ( $method eq 'Get'){
 my $uri_type = 'http://';
 my $restapi_server='127.0.0.1:3000';
 my $resturi=$restful_path; 
-my $curl_cmd = $curl_method . $uri_type . $restapi_server . '/restapi/wsnmanage/Connectivity/' . $resturi . ' |'; 
+my $curl_cmd = $curl_method . $uri_type . $restapi_server . '/restapi/wsnmanage/' . $resturi . ' |'; 
 #print "curl_cmd ====== $curl_cmd \n";
+#print "restful_path ====== $restful_path \n";
                     
 open(CURL,$curl_cmd) || die "Failed: $!\n";
     
@@ -80,7 +81,7 @@ else{
 }
 
 Exit:
-print "<p id=\"demo\">rsetful_path = $restful_path</p>";
+print "<p id=\"demo\">RESTful path = $restful_path</p>";
 print "<p id=\"content\">content = $content</p>";
 print "<button type=\"button\" onclick=\"myFunction()\">Try it</button>";
 
