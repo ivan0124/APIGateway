@@ -135,6 +135,7 @@ function genDeviceHtml( rootRESTful, RESTful, asm ){
   var line1 = '<form action=\"set.cgi\">\r\n';
   var line2 = RESTful +':\r\n'; 
   var line3 = '<input type=\"text\" name=\"';
+  var line3_1 = '<input type=\"hidden\" name=\"';
   var line4 = rootRESTful + RESTful;
   var line5 = '\" value=\"\"'; 
   var line6 = ' readonly>\r\n';
@@ -145,7 +146,7 @@ function genDeviceHtml( rootRESTful, RESTful, asm ){
   var line9 = '\r\n';
   
   if ( asm === 'r' ){ 
-    var html_form = line1 + line2 + line3 + line4 + line5 + line6 + line7 + line8 + line9;
+    var html_form = line1 + line2 + line3_1 + line4 + line5 + line6 + line7 + line8 + line9;
   }
   else{
     var html_form = line1 + line2 + line3 + line4 + line5 + line6_1 + line7 + line7_1 + line8 + line9;
