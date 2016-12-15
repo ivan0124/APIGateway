@@ -145,6 +145,10 @@ function addHostConnectivity(){
 
   //
   ConnectivityMap.set(gHostConnectivity, connObj );
+  
+  //send generate html event ( IP-base connectivity)                   
+  var rootRESTful = 'IoTGW/' + connObj.conn_type + '/' + gHostConnectivity; 
+  genHtmlEventObj.emit(groupName, EVENT.eConnectivity_GenHtml, rootRESTful,connObj.dev_full_info);
 
 }
 
@@ -665,9 +669,12 @@ function connectivityMapUpdate( messageType, vgw_id, osInfo, layer, connType, in
                    buildFullInfoObj(false, keyStr, fullInfoObj);
                    connectivity.dev_full_info = JSON.stringify(fullInfoObj);
 
-                   /* send generate html event */
-                   var rootRESTful = 'IoTGW/' + connType + '/' + device_id; 
-                   genHtmlEventObj.emit(groupName, EVENT.eConnectivity_GenHtml, rootRESTful,connectivity.dev_full_info);
+                   
+                   if ( getOSType( connectivity.os_info ) === OS_TYPE.NONE_IP_BASE ){
+                     /* send generate html event */
+                     var rootRESTful = 'IoTGW/' + connType + '/' + device_id; 
+                     genHtmlEventObj.emit(groupName, EVENT.eConnectivity_GenHtml, rootRESTful,connectivity.dev_full_info);
+                   }
 /*
                    console.log('-----------');
                    console.log('connectivity.dev_full_info ==== ' + connectivity.dev_full_info);
@@ -786,8 +793,15 @@ function sensorHubMapUpdate(messageType, device_id, message){
           //console.log('sensorhub.dev_full_info ==== ' + sensorhub.dev_full_info);
           eventMsgObj.agentID = device_id;
           eventEmitterObj.emit(groupName, groupName, WSNEVENTS[4].event, eventMsgObj);
+
           /* send generate html event */
-          var rootRESTful = 'SenHub/' + sensorhub.conn_type + '/' + device_id + '/' + sensorhub.conn_id; 
+          if ( getOSType( sensorhub.os_info ) === OS_TYPE.NONE_IP_BASE ){
+            var rootRESTful = 'SenHub/' + obj.conn_type + '/' + device_id + '/' + sensorhub.conn_id; 
+          }
+          else{
+            var connectivityObj = ConnectivityMap.get(gHostConnectivity);
+            var rootRESTful = 'SenHub/' + connectivityObj.conn_type + '/' + device_id + '/' + gHostConnectivity; 
+          }
           genHtmlEventObj.emit(groupName, EVENT.eSensorHub_GenHtml, rootRESTful, sensorhub.dev_full_info);
           //
           console.log('-----------');
