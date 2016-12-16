@@ -94,7 +94,7 @@ else{
 Exit:
 print "<p id=\"demo\">RESTful path = $restful_path</p>";
 print "<p id=\"content\">content = $content</p>";
-print "<button type=\"button\" onclick=\"myFunction()\">Try it</button>";
+#print "<button type=\"button\" onclick=\"myFunction()\">Try it</button>";
 
 print "</body>\n";
 print "</html>\n";

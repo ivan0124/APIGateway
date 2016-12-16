@@ -4,7 +4,7 @@ require './myTest-lib.pl';
 ui_print_header(undef);
 
     my $css_file = "./style.css";
-    print "$css_file\n";
+    #print "$css_file\n";
     open(my $fh_css, '<:encoding(UTF-8)', $css_file)
       or die "Could not open file '$css_file' $!";
     while (my $row_css = <$fh_css>) {
@@ -28,7 +28,7 @@ ui_print_header(undef);
           
 	  #print HTML file
     	  my $path = "$dir/$file";
-    	  print "$path\n";
+    	  #print "$path\n";
     	  open(my $fh, '<:encoding(UTF-8)', $path)
     	    or die "Could not open file '$path' $!";
     	  while (my $row = <$fh>) {
