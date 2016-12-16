@@ -22,11 +22,15 @@ print "<body>\n";
 my $restful_path;
 my $method;
 my $content;
+my $put_data;
 &ReadParse();
 foreach $key (keys %in) {
     #print "<p>key= $key, value = $in{$key}</p>\n";
     if ( $key ne 'restful' ){
       $restful_path = $key;
+      $put_data = '{"sv":"' . $in{$key} . '"}';
+      
+      #print "<p>key= $key, value = $in{$key}</p>\n";
     }
     if ( $key eq 'restful' ){
       $method = $in{$key};
@@ -48,15 +52,17 @@ if ( $method eq 'Get'){
     $curl_method = 'curl --connect-timeout 3 --max-time 30 -H "Content-Type: application/json" -X GET ';
 }
                         
-#if ( $method eq 'PUT'){
-#    $curl_method = 'curl --connect-timeout 3 --max-time 30 -H "Content-Type: application/json" -X PUT -d ' . '\''.$posted_data .'\'' . ' ';
-#}
+if ( $method eq 'Set'){
+    #print "<p>PUT method===== $method</p>\n";
+    #print "<p>PUT data===== $put_data</p>\n";
+    $curl_method = 'curl --connect-timeout 3 --max-time 30 -H "Content-Type: application/json" -X PUT -d ' . '\''.$put_data .'\'' . ' ';
+}
 
 #curl --connect-timeout 3 -H "Content-Type: application/json" -X GET http://172.22.213.143:3000/restapi/wsnmanage/Connectivity/IoTGW/WSN/0007000E40ABCDEF/Info/reset |';
 my $uri_type = 'http://';
 my $restapi_server='127.0.0.1:3000';
 my $resturi=$restful_path; 
-my $curl_cmd = $curl_method . $uri_type . $restapi_server . '/restapi/wsnmanage/' . $resturi . ' |'; 
+my $curl_cmd = $curl_method . $uri_type . $restapi_server . '/restapi/wsnmanage/' . $resturi . ' |';
 #print "curl_cmd ====== $curl_cmd \n";
 #print "restful_path ====== $restful_path \n";
                     
