@@ -23,20 +23,25 @@ my $restful_path;
 my $method;
 my $content;
 my $put_data;
+my $put_data_type;
 &ReadParse();
 foreach $key (keys %in) {
     #print "<p>key= $key, value = $in{$key}</p>\n";
-    if ( $key ne 'restful' ){
+    if ( $key ne 'restful' && $key ne 'data_type' ){
       $restful_path = $key;
-      $put_data = '{"sv":"' . $in{$key} . '"}';
-      
-      #print "<p>key= $key, value = $in{$key}</p>\n";
+      $put_data = $in{$key};
+    }
+    if ( $key eq 'data_type' ){
+      $put_data_type = $in{$key};
     }
     if ( $key eq 'restful' ){
       $method = $in{$key};
 	  #print "<p>method = $method</p>\n";
     }	
 };
+
+$put_data ='{"'.$put_data_type.'":"'.$put_data.'"}';
+#print "<p>put_data with type = $put_data</p>\n";
 
 if ( $method eq "" ){
    $content= 'Method is empty';
